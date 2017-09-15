@@ -30,6 +30,12 @@
         <curator.version>4.0.0</curator.version>
     </properties>
 
+    <scm>
+        <connection>scm:git:git://github.com/Cashlix/JonesEnvironmentRepository.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Cashlix/JonesEnvironmentRepository.git</developerConnection>
+        <url>https://github.com/Cashlix/JonesEnvironmentRepository</url>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
