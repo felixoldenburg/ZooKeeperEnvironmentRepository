@@ -34,7 +34,7 @@ public class JonesConfiguration
 
 
     @Bean
-    @ConditionalOnMissingBean(JonesEnvironmentRepository.class)
+    @ConditionalOnMissingBean(CuratorFramework.class)
     public CuratorFramework curatorFramework()
     {
         return CuratorFrameworkFactory.newClient(zkConnectionString, sessionTimeout, connectTimeout, DEFAULT_RETRY_POLICY);
