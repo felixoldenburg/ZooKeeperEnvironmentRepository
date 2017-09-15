@@ -36,6 +36,13 @@
         <url>https://github.com/Cashlix/JonesEnvironmentRepository</url>
     </scm>
 
+    <developers>
+        <developer>
+            <name>Felix Oldenburg</name>
+            <email>oldenburg.felix@gmail.com</email>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
