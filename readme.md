@@ -22,9 +22,9 @@ Execute ```mvn clean install``` in the project directory.
     <dependencies>
       ...
       <dependency>
+        <groupId>com.github.felixoldenburg</groupId>
         <artifactId>jones-repository</artifactId>
-        <version>1.0.0</version>
-        <packaging>jar</packaging> 
+        <version>1.0.1</version>
       </dependency>
     </dependencies>
     
