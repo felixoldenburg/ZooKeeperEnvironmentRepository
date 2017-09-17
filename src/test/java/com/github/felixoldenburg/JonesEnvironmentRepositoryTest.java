@@ -1,4 +1,4 @@
-package com.foldenburg.jones;
+package com.github.felixoldenburg;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

@@ -1,4 +1,4 @@
-package com.foldenburg.jones;
+package com.github.felixoldenburg;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;

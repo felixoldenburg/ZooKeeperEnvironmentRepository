@@ -1,4 +1,4 @@
-package com.foldenburg.jones;
+package com.github.felixoldenburg;
 
 /**
  * Created by f.oldenburg on 9/17/15.

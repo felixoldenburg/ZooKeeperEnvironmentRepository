@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.foldenburg.jones;
+package com.github.felixoldenburg;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
