@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,28 +36,40 @@ import org.springframework.cloud.config.server.environment.EnvironmentRepository
 import org.springframework.core.Ordered;
 
 /**
- * This is a custom environment repository which reads its configuration from ZooKeeper in the Jones format.
- * It requires a CuratorFramework instance to work with.
- *
+ * A custom {@link EnvironmentRepository} which reads its configuration from ZooKeeper.
+ * Configuration is stored hierarchically which allows for complex configuration setups via inheritance.
+ * <p>
+ * /services/<name>/conf        The actual configuration
+ * /services/<name>/nodemaps    A json map, mapping from a keyword(association) to config view
+ * /services/<name>/view        The effective config for name which includes all configuration from its ancestors
+ * <p>
+ * Nodes can inherit their configuration from ancestors.
+ * Following a complete example for a service myservice with configuration for the environments prod, dev and qa.
+ * Their are three arbitrary associations mapping to each of the environments
+ * <p>
+ * /services/myservice/nodemaps         -> {"live": "/services/myservice/conf/prod", "developer": "/services/myservice/conf/test/dev", "bob": "/services/myservice/conf/test/qa"}
+ * /services/myservice/conf             -> JSON
+ * /services/myservice/conf/prod        -> JSON
+ * /services/myservice/conf/test        -> JSON
+ * /services/myservice/conf/test/dev    -> JSON
+ * /services/myservice/conf/test/qa     -> JSON
+ * <p>
  * @author Felix Oldenburg
  */
-public class JonesEnvironmentRepository implements EnvironmentRepository, Ordered
+public class ZooKeeperEnvironmentRepository implements EnvironmentRepository, Ordered
 {
-    private static final Logger LOG = LoggerFactory.getLogger(JonesEnvironmentRepository.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperEnvironmentRepository.class);
 
     @Value("${spring.cloud.config.server.jones.order}")
     private int order = Ordered.LOWEST_PRECEDENCE;
 
     private final Gson gson;
 
-    /**
-     * The path structure is predefined by Jones
-     */
-    private final String ROOT_PATH = "/services/%s/";
-    private final String NODE_MAPS = ROOT_PATH + "nodemaps";
-    private final String CONF_DEFAULT = ROOT_PATH + "conf";
+    private final static String DEFAULT_PREFIX = "/configuration";
+    private final String rootPath;
+    private final String nodeMapPath;
 
-    // Mapping type for json deserialization
+    // Mapping type for json deserialization of a String -> String map
     Type MAP_TYPE = new TypeToken<Map<String, String>>()
     {
     }.getType();
@@ -65,10 +77,19 @@ public class JonesEnvironmentRepository implements EnvironmentRepository, Ordere
     private CuratorFramework curator;
 
 
-    public JonesEnvironmentRepository(CuratorFramework curator)
+    public ZooKeeperEnvironmentRepository(CuratorFramework curator)
+    {
+        this(curator, DEFAULT_PREFIX);
+    }
+
+
+    public ZooKeeperEnvironmentRepository(CuratorFramework curator, String prefix)
     {
         this.curator = curator;
         this.gson = new Gson();
+
+        rootPath = prefix + "/%s/";
+        nodeMapPath = rootPath + "nodemaps";
     }
 
 
@@ -112,7 +133,7 @@ public class JonesEnvironmentRepository implements EnvironmentRepository, Ordere
         try
         {
             // Get the config path for the service and association
-            final String nodeMapPath = String.format(NODE_MAPS, service);
+            final String nodeMapPath = String.format(this.nodeMapPath, service);
             final byte[] nodeMapData = this.curator.getData().forPath(nodeMapPath);
             final Map<String, String> nodeMap = this.gson.fromJson(new String(nodeMapData), MAP_TYPE);
             final String configPath = nodeMap.get(association);
@@ -149,7 +170,7 @@ public class JonesEnvironmentRepository implements EnvironmentRepository, Ordere
 
         if (properties != null)
         {
-            environment.add(new PropertySource("JonesPropertySource", properties));
+            environment.add(new PropertySource("ZookeeperPropertySource", properties));
         }
 
         return environment;

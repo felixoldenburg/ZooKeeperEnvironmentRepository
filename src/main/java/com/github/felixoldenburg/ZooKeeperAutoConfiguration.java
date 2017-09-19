@@ -10,26 +10,26 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("jones")
-public class JonesAutoConfiguration
+@Profile("zookeeper")
+public class ZooKeeperAutoConfiguration
 {
-    @Value("${spring.cloud.config.server.jones.zookeeper.connectionString}")
+    @Value("${spring.cloud.config.server.zookeeper.connectionString}")
     private String zkConnectionString;
 
-    @Value("${spring.cloud.config.server.jones.zookeeper.sessionTimeout:3600000}")
+    @Value("${spring.cloud.config.server.zookeeper.sessionTimeout:3600000}")
     private Integer sessionTimeout;
 
-    @Value("${spring.cloud.config.server.jones.zookeeper.connectTimeout:10000}")
+    @Value("${spring.cloud.config.server.zookeeper.connectTimeout:10000}")
     private Integer connectTimeout;
 
     final ExponentialBackoffRetry DEFAULT_RETRY_POLICY = new ExponentialBackoffRetry(1000, 3);
 
 
     @Bean
-    @ConditionalOnMissingBean(JonesEnvironmentRepository.class)
-    public JonesEnvironmentRepository jonesEnvironmentRepository(CuratorFramework curatorFramework)
+    @ConditionalOnMissingBean(ZooKeeperEnvironmentRepository.class)
+    public ZooKeeperEnvironmentRepository jonesEnvironmentRepository(CuratorFramework curatorFramework)
     {
-        return new JonesEnvironmentRepository(curatorFramework);
+        return new ZooKeeperEnvironmentRepository(curatorFramework);
     }
 
 

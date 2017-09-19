@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.felixoldenburg</groupId>
-    <artifactId>jones-repository</artifactId>
-    <version>1.2.0</version>
+    <artifactId>spring-cloud-config-zookeeper</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>jones-repository</name>
-    <description>A custom EnvironmentRepository for Spring cloud config server which pulls configuration from Jones
-        (ZooKeeper)
+    <name>zookeeper-repository</name>
+    <description>A custom EnvironmentRepository for Spring Cloud Config Server which pulls the configuration from
+        ZooKeeper
     </description>
 
     <licenses>
@@ -31,9 +31,10 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git://github.com/Cashlix/JonesEnvironmentRepository.git</connection>
-        <developerConnection>scm:git:ssh://github.com/Cashlix/JonesEnvironmentRepository.git</developerConnection>
-        <url>https://github.com/Cashlix/JonesEnvironmentRepository</url>
+        <connection>scm:git:git://github.com/felixoldenburg/ZooKeeperEnvironmentRepository.git</connection>
+        <developerConnection>scm:git:ssh://github.com/felixoldenburg/ZooKeeperEnvironmentRepository
+            .git</developerConnection>
+        <url>https://github.com/felixoldenburg/ZooKeeperEnvironmentRepository</url>
     </scm>
 
     <developers>

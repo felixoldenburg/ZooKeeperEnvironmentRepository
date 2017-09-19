@@ -11,22 +11,18 @@ import org.apache.curator.test.TestingServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cloud.config.environment.Environment;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class JonesEnvironmentRepositoryTest
+public class ZooKeeperEnvironmentRepositoryTest
 {
-    private static final Logger LOG = LoggerFactory.getLogger(JonesEnvironmentRepositoryTest.class);
-
     TestingServer server = null;
     CuratorFramework curator = null;
     final RetryNTimes retryPolicy = new RetryNTimes(0, 100);
-    private JonesEnvironmentRepository dut;
+    private ZooKeeperEnvironmentRepository dut;
 
 
     @Before
@@ -38,21 +34,21 @@ public class JonesEnvironmentRepositoryTest
         curator = CuratorFrameworkFactory.newClient(server.getConnectString(), retryPolicy);
         curator.start();
 
-        dut = new JonesEnvironmentRepository(curator);
+        dut = new ZooKeeperEnvironmentRepository(curator);
 
         // Test env
         final JsonObject testJson = new JsonObject();
         testJson.addProperty("username", "test-anna");
-        setupJonesConfig("myapplication", "development", testJson);
+        setupZooKeeperConfig("myapplication", "development", testJson);
 
         // Prod env
         final JsonObject liveJson = new JsonObject();
         liveJson.addProperty("username", "production-bob");
-        setupJonesConfig("myapplication", "production", liveJson);
+        setupZooKeeperConfig("myapplication", "production", liveJson);
     }
 
 
-    private void setupJonesConfig(String application, String association, JsonObject config) throws Exception
+    private void setupZooKeeperConfig(String application, String association, JsonObject config) throws Exception
     {
         final String applicationPath = "/services/" + application;
         final String confPath = applicationPath + "/" + association + "/view";
