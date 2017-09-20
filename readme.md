@@ -47,7 +47,7 @@ Execute ```mvn clean install``` in the project directory.
       <dependency>
         <groupId>com.github.felixoldenburg</groupId>
         <artifactId>spring-cloud-config-zookeeper</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
       </dependency>
     </dependencies>
     
