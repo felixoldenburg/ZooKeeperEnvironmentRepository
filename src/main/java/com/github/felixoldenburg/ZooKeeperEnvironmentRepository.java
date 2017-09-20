@@ -60,7 +60,7 @@ public class ZooKeeperEnvironmentRepository implements EnvironmentRepository, Or
 {
     private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperEnvironmentRepository.class);
 
-    @Value("${spring.cloud.config.server.jones.order}")
+    @Value("${spring.cloud.config.server.zookeeper.order}")
     private int order = Ordered.LOWEST_PRECEDENCE;
 
     private final Gson gson;
@@ -116,7 +116,7 @@ public class ZooKeeperEnvironmentRepository implements EnvironmentRepository, Or
         {
             closeZKConnection();
 
-            throw new RuntimeException("Error starting Jones", e);
+            throw new RuntimeException("Error connection to ZooKeeper", e);
         }
     }
 

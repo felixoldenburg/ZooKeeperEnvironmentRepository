@@ -31,7 +31,7 @@ The idea of for this configuration in this format is from https://github.com/mwh
 
 ## Plug'n'Play
 This project provides a Spring Boot auto configuration.
-If the "jones" Spring profile is added Spring Cloud Config Server automatically picks up the 
+If the "zookeeper" Spring profile is added Spring Cloud Config Server automatically picks up the 
 ZooKeeperEnvironmentRepository.
 
 ## Usage
@@ -47,7 +47,7 @@ Execute ```mvn clean install``` in the project directory.
       <dependency>
         <groupId>com.github.felixoldenburg</groupId>
         <artifactId>spring-cloud-config-zookeeper</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
       </dependency>
     </dependencies>
     

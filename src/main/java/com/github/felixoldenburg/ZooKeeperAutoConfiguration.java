@@ -22,14 +22,17 @@ public class ZooKeeperAutoConfiguration
     @Value("${spring.cloud.config.server.zookeeper.connectTimeout:10000}")
     private Integer connectTimeout;
 
+    @Value("${spring.cloud.config.server.zookeeper.prefix:/configuration}")
+    private String zkPrefix;
+
     final ExponentialBackoffRetry DEFAULT_RETRY_POLICY = new ExponentialBackoffRetry(1000, 3);
 
 
     @Bean
     @ConditionalOnMissingBean(ZooKeeperEnvironmentRepository.class)
-    public ZooKeeperEnvironmentRepository jonesEnvironmentRepository(CuratorFramework curatorFramework)
+    public ZooKeeperEnvironmentRepository zooKeeperEnvironmentRepository(CuratorFramework curatorFramework)
     {
-        return new ZooKeeperEnvironmentRepository(curatorFramework);
+        return new ZooKeeperEnvironmentRepository(curatorFramework, zkPrefix);
     }
 
 
