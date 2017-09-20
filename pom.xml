@@ -5,7 +5,7 @@
 
     <groupId>com.github.felixoldenburg</groupId>
     <artifactId>spring-cloud-config-zookeeper</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>zookeeper-repository</name>
@@ -29,6 +29,19 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <curator.version>4.0.0</curator.version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>repos.mytaxi.com-releases</id>
+            <name>repos.mytaxi.com-releases</name>
+            <url>http://repos.mytaxi.com:8081/artifactory/internal</url>
+        </repository>
+        <snapshotRepository>
+            <id>repos.mytaxi.com</id>
+            <name>repos.mytaxi.com-snapshots</name>
+            <url>http://repos.mytaxi.com:8081/artifactory/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <scm>
         <connection>scm:git:git://github.com/felixoldenburg/ZooKeeperEnvironmentRepository.git</connection>

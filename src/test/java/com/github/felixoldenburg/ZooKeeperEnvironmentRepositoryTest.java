@@ -34,7 +34,7 @@ public class ZooKeeperEnvironmentRepositoryTest
         curator = CuratorFrameworkFactory.newClient(server.getConnectString(), retryPolicy);
         curator.start();
 
-        dut = new ZooKeeperEnvironmentRepository(curator);
+        dut = new ZooKeeperEnvironmentRepository(curator, "/services");
 
         // Test env
         final JsonObject testJson = new JsonObject();
@@ -64,7 +64,7 @@ public class ZooKeeperEnvironmentRepositoryTest
             curator.create().orSetData().creatingParentsIfNeeded().forPath(
                 nodemapPath, confPathMapping.toString().getBytes());
         }
-        else // Update exisiting nodemap config
+        else // Update existing nodemap config
         {
             final String json = new String(curator.getData().forPath(nodemapPath));
             final JsonObject nodemapConf = new JsonParser().parse(json).getAsJsonObject();
@@ -81,6 +81,7 @@ public class ZooKeeperEnvironmentRepositoryTest
         curator.close();
     }
 
+
     @Test
     public void findEnvironment() throws Exception
     {
@@ -88,10 +89,11 @@ public class ZooKeeperEnvironmentRepositoryTest
 
         assertNotNull(env);
         assertEquals("myapplication", env.getName());
-        assertArrayEquals(new String[]{"development"}, env.getProfiles());
+        assertArrayEquals(new String[] {"development"}, env.getProfiles());
         assertNotNull(env.getPropertySources());
         assertEquals(1, env.getPropertySources().size());
     }
+
 
     @Test
     public void getProperties() throws Exception
