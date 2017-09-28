@@ -63,11 +63,11 @@ This is an example for using the ZooKeeperEnvironmentRepository in combination w
         config:
           server:
             git:
-              uri: ssh://git@stash.intapps.it:7999/con/{application}.git
+              uri: <your git repo url here>
               order: 1
             zookeeper:
               order: 2
-              connectionString: zookeeper.address
+              connectionString: <your zookeeper address, or comma separated list of addresses here>
        
 ## Dependenices
 Next to Spring Cloud Config Server this library depends on...
