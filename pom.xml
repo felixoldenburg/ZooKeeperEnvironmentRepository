@@ -24,24 +24,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-cloud.version>Dalston.SR3</spring-cloud.version>
+        <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <curator.version>4.0.0</curator.version>
     </properties>
-
-    <distributionManagement>
-        <repository>
-            <id>repos.mytaxi.com-releases</id>
-            <name>repos.mytaxi.com-releases</name>
-            <url>http://repos.mytaxi.com:8081/artifactory/internal</url>
-        </repository>
-        <snapshotRepository>
-            <id>repos.mytaxi.com</id>
-            <name>repos.mytaxi.com-snapshots</name>
-            <url>http://repos.mytaxi.com:8081/artifactory/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <scm>
         <connection>scm:git:git://github.com/felixoldenburg/ZooKeeperEnvironmentRepository.git</connection>
